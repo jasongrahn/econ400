@@ -1,0 +1,149 @@
+---
+title: 'DQ-2: Assignment Week 2'
+author: "Jason Grahn"
+date: "April 12, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(usethis)
+
+```
+
+
+#Part 1:  You are estimating the SALES of Tom’s Burger, your client, based on 45 monthly data, the output is as follows:
+
+```{r add standard variables, include=FALSE}
+const <- 118.91
+betaprice <- 7.908
+betaadvert <- 1.863
+
+constSE <- 6.35
+priceSE <- 1.096
+advertSE <- 0.683
+
+r2 <- 0.448
+SSR <- 1718.943
+```
+
+
+Sales=  118.91  - 7.908 Price + 1.863 Advert
+
+(se)    (6.35)    (1.096)       (0.683)
+
+R-sq = 0.448;  
+SSR (Residuals) = 1718.943
+
+Note:  In Gretl, Sum of Squares of Residuals is noted as SSR or RSS.
+
+1. What is your interpretation of the coefficient of PRICE?
+    * For every positive change of 1 in PRICE, sales will decrease by 7.908.
+
+
+2. What is your interpretation of the coefficient of ADVERT?
+    * For every positive change of 1 in ADVERT, sales will increase by 1.863.
+
+
+3. What is your interpretation of the coefficient of the Intercept?
+    * With no change to PRICE or ADVERT, sales will be approximately 118.91.
+
+
+```{r predict sales, include=FALSE}
+price <- 5.5
+advert <- 1200
+Sales <- const - (betaprice*price) + (betaadvert*advert)
+Sales
+```
+
+4. If price is `$5.50` and Advertising expenses are `$1,200`, what is the predicted value of Sales revenue?
+    * The predicted value for sales would be `r Sales`.
+    
+    
+```{r question 5 code, include=FALSE}
+tconst <- const / constSE
+tconst
+
+tprice <- price / priceSE
+tprice
+
+tadvert <- advert / advertSE
+tadvert
+
+tstat <- 2.2021
+
+tconst > tstat 
+tprice > tstat 
+tadvert > tstat 
+
+#confidence intervals. the 95% confidence interval is defined as (beta - Tstat * SE) and (beta + Tstat * SE)
+betaprice - (tstat*priceSE)
+betaprice + (tstat*priceSE)
+
+betaadvert - (tstat*advertSE)
+betaadvert + (tstat*advertSE)
+```    
+5. Conduct t-test for all variables using 95% confidence intervals, state your conclusion.
+    * With 45 units in the sample, the closest t-test statistic is for `n=40`, which is `2.021` at `.05 alpha`. The T-stat for constant is: `r tconst`; T-stat for price is: `r tprice`; T-stat for advert is: `r tadvert`. The constant and each variable each test greater than than the t-statistic at `.05 alpha`. The constant and each variable are all statistically significant for the model. The 95% confidence interval for Beta-Price is (`r betaprice - (tstat*priceSE)`, `r betaprice + (tstat*priceSE)`). The The 95% confidence interval for Beta-Advert is (`r betaadvert - (tstat*advertSE)`, `r betaadvert + (tstat*advertSE)`).
+
+```{r question 6 code ftest, include=FALSE}
+# r2 = SSR 
+    # /TSS    
+# so TSS = SSR / r2
+
+TSS <- SSR / r2
+TSS
+ 
+ESS <- TSS - SSR
+ESS
+
+#f-tests are goodness of fit for the model and defined as 
+
+(MST <- TSS / 2 - 1)
+(MSE <- ESS / 45 - 2)
+(Fstat <- MST / MSE)
+
+```
+6. Conduct F-test (using R2 to find SST; and find the F-value), state your conclusion
+    * With numerator degrees of freedom: 1 and denominator degrees of freedom: 43; The F-test number is `7.31`. The F-statistic generated from `MST / MSE` gives us `r Fstat`. Because the F-statistic is higher than the F-test, we conclude that the model is significant and passes as a good fit.
+
+```{r question 7 code, include=FALSE}
+(Adjr2 <- 1 - ((ESS / 45 - 2) / (TSS / 45 - 1))
+ )
+(AIC <- log(ESS / 45) + (2*2 / 45)
+  )
+(SC <- log(ESS / 45) + ((2 * log(45) / 45))
+    )
+```
+    
+7. Calculate the three model selection criteria (Adjusted R-square, AIC, and SIC)
+    * Adjusted R-Squared is `r Adjr2`
+    * AIC is `r AIC` 
+    * SIC is `r SC` ☺ 
+    
+    
+8. In which case, R-square and Adjusted R-square are exactly the same?
+    * In this case the two values are _really_ close but they are not exactly the same. R-squared is `r r2` while Adjusted R-squared is `r Adjr2`.
+    
+
+# Part II.  Still referring to the IMF Working Paper on Trust and Inequality:
+
+Read pages 5-12, and answer the following:
+
+1. Describe the model. What represent the Dependent Variable? What represent the Independent Variable?
+    * The most elaborate model uses a variety of factors; just within pages 7 and 8 I found over 20 potential variables for the model. At it's core, the model is attempting to predict how trust changes according to various factors of inequality. 
+    * The dependent variable is _TRUST_. This model uses something considered "generalized trust."
+    * The independent variable is _INEQUALITY_. Inequality has two components: Inequality of Opportunity and Inequality of Outcomes. 
+
+
+4. Is it possible for a reversed causal direction?  Explain.
+    * 
+
+5. How are each of the variables measured in this model?
+    * 
+
+6. Survey: Can you creatively find ways on how it was conducted? Give two examples of questions (made up your own) for the survey.
+    * 
+
+7. Now, look at the conclusion, page 21: does it agree or disagree with your initial intuition?
+    * 
