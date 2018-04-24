@@ -1,0 +1,83 @@
+---
+title: 'DQ-3: Multicollinearity in the Inequality Paper'
+output:
+  html_document:
+    df_print: paged
+---
+
+Growing Apart, Losing Trust? The Impact of Inequality on Social Capital, IMF Working Paper, 2016,by Eric Gould and Alex Hijzn, Aug 2016
+
+#Table 1 
+```{r Table 1}
+#Wish I knew how to scrape PDFs to extract these damn tables. I bet they'll be useful in other assignments. n
+```
+
+What does this table describe?
+
+    * From page 10, "Table 1 presents summary statistics of the main demographic variables in the American National Election Survey (ANES). In addition to age, gender, and education, the surveys contain information on ethnicity, religion, marital status, employment status, and which third of the family income distribution the respondent belongs to." The demographic information is used as predictor variables. 
+
+How many variables/characters used in the census? Which variables might have the case of rather severe case of multicollinearity?
+
+    * The variables contain Age, gender, level of education, marriage status (Married / not married), religion (Protestant, Catholic, Jewish), Ethnicity (Black or White), Employment status, income level. multicollinearity might exist within a few variables. 
+        * Negative: HS Dropout vs (any other level of education), Any religion vs any other, top income vs bottom income, unemployment vs any income level.
+        * Positive: income level vs education level. 
+    
+    
+Look at data on HS dropout vs. Advanced degree; tell me what you see.
+
+    * There is a strong negative relationship between the two variables at R = -0.919185624
+
+
+#Table 2:
+What does this table describe? How many variables/characters used in the census? Which variables might have the case of rather severe case of multicollinearity?
+
+    * Table 2 provides variables of social capital. From the text: "summary statistics for the social capital outcomes and other views of respondents in the ANES." There are 15 variables including the Census Year and Year of ANES study variables. The data in this table is rather sparce, but I would guess we'd see some collinearity between year and attending religious service or religious attendance and trust in government. It sure would be nice to have these tables as available datasets.  
+
+Compare years of 1980 and 2010 for the variable: “Trust Govt to do Right”, what do you see?
+
+    * There's no "Trust Govt" variable specific to the year 2010, so this question must refer to the census year. The data for “Trust Govt to do Right”spanning the times between the census years 1980 and 2010 fluctuates, but if we select Year of ANES study 1980 and 2012, the data are nearly equivalent at _0.236_ and _0.230_.
+
+Which variables seem to increase between the years 1980 to 2010?
+
+    * The variable for _"Never Attend Religious Service"_ appears to increase over the timeframe. _"People are Helpful"_ also increases. 
+
+#Table 3:
+
+What functional forms being used?
+
+    * Funtional forms are linear forms that have been transformed in some way. This could being sqaured, multipled, logged, etc. Age squared, Age cubed, and Married*Male all appear to be tranformed into functional forms.  
+
+Compare table 3 with table 7, look for the difference in the use of “Interactive Terms”, why are they different? Does it matter?
+
+    * I started by looking in tht tables for that phrase but couldn't see it. I'm not sure why "interactive terms" are in quotes for this question. For one, Table 3 contains more dummy variables. The differences I could sport are:
+        * Male vs maledummy
+        * "married x male" vs "married x female" -- which probably exists because the male_dummy was created.
+        * table 7 includes gdp per capita
+        * Education levels were changed to "Educ ISCED [#]", but ISCED is never defined in the paper. 
+        * The time period is also shortened for table 7.
+
+
+#Table 10-11-12:
+What are the similarities among these tables?
+
+    * Each contain a measure of residual and total. 
+    * Residual 50/10 is on Table 10 and 11.
+    * Residual 90/50 is on Table 10 and 12. 
+    * The comparative variables for the columns are the same between each table. 
+
+What are the differences?
+
+    * Each residual and each total are separate ratios. 
+    * Table 10 contains the GINI score.
+    * Table 11 contains poverty and employment rates for non-college participants. This is measurements of equality at the bottom-end. 
+    * Table 12 contains share information. This table measures equality at the top-end. 
+
+#Table 16-17:
+What are the similarities between these tables?
+
+    * Tables 16 and 17 both contain income data for each of the groups.
+
+What are the differences?
+
+    * Table 16 splits the groups by age clusters.
+    * Table 17 has varible headers that allow for trust compaisons.
