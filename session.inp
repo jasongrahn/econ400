@@ -1,0 +1,33 @@
+# Log started 2018-04-24 19:02
+# Record of session commands.  Please note that this will
+# likely require editing if it is to be run as a script.
+open \
+  "C:\Users\jagrahn\Dropbox\school\ECON400\econ400\project 2 data download from gretl.gdt"
+open fedstl.bin
+data mortg
+delete homes irate fedfunds cpiaucns tb3ms gs30 gdp
+data fedfunds
+data cpifabns
+data gdp --interpolate
+data tb3ms
+data gs20
+data spcs10rsa
+data houst
+data mpcredit
+# store \
+  "C:\Users\jagrahn\Dropbox\school\ECON400\econ400\project 2 data download from gretl.gdt"
+# store \
+  "C:\Users\jagrahn\Dropbox\school\ECON400\econ400\project 2 data.csv"
+# store \
+  "C:\Users\jagrahn\Dropbox\school\ECON400\econ400\project 2 data.csv" \
+  --csv
+open fedstl --www
+data currcir
+delete mpcredit
+# store \
+  "C:\Users\jagrahn\Dropbox\school\ECON400\econ400\project 2 data.csv" \
+  --csv
+# store \
+  "C:\Users\jagrahn\Dropbox\school\ECON400\econ400\project 2 data download from gretl.gdt"
+# model 1
+ols mortg 0 fedfunds cpifabns gdp tb3ms gs20 spcs10rsa houst currcir

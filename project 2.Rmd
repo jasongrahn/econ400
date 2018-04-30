@@ -1,0 +1,42 @@
+---
+title: "Project #2 - Multicollinearity and Non-Linear Models"
+output: html_notebook
+---
+
+Topic for this second project: Mortgage rate 
+
+Use the database on Gretl or other sources of your choice to get the following data series:
+
+Items in (parenthesis) come from gretl data.
+
+Y = (irate) 30-year mortgage rate
+X1 = (fedfunds) federal funds rate
+X2 = (cpiaucns) inflation rate
+X3 = (gdp) economic growth (GDP growth rate)
+X4 = (tb3ms) 3-month Treasury Bills (rate)
+X5 = (gs30) 30-year Treasury Bonds (rate)
+X6 = House prices return (index)
+X7 = Year
+X8 = (homes) New one-family houses sold in the US in Thousands
+
+
+
+ Add two more variables of your own choice; Look for your own sources (mostly from FRED), improvise as you need to; get data as far back as you can.
+
+For each explanatory variables, indicate the effect (positive or negative) that you anticipate.
+
+Estimate OLS with all the variables. Perform a t-test and F-test at 5% significance level.
+
+Use `corr` to check for the correlation coefficients of the variables; identify variables that are insignificant.
+
+Use textplot command to analyze the residulas, and identify a possible non-linear relationship (logs, interactive, lags, etc.). Modify your model accordingly.   Check t--, F-, p-values for significance.
+
+Start with your original model (at part 2.), then omit one at a time, each time re-estimate and justify each omission; Use the (modeltab add) and (modeltab show) commands to gather your outputs later.     Note that "modeltab" command only works when the dependent (y-) variable remains the same (in the same form).
+
+What is your final model?
+
+Now, back to the original model, then use Reset or LM test to test possible non-linearity forms.  Check if the final output of this step conforms with your final model in part 6).
+
+Do the signs or the (non)linearity in the final model agree with your intuition? Write up a cover page for your assessment and conclusion, and attach your summary of outputs.
+
+Print them and submit your report on Monday next week.

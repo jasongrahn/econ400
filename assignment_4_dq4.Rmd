@@ -1,0 +1,60 @@
+---
+title: "assignment_4_functional_forms"
+author: "Jason Grahn"
+date: "April 28, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1.  For each of the following, discuss whether you expect the relationship to be linear or non-linear; then identify the nature of any non-linearity you anticipate (intuitively, without knowing the data beforehand).
+
+a) Height and speed in the Seattle Marathon
+
+    * Non-linear. I think this would be quadratic after finding some point of "peak" stride length. Shorter participants would exert extra energy to maintain a high cadence that matches the speed of a peak-efficiency stride length.  
+
+b) Height and rebounds in the National Basketball Association
+
+    * Linear. I don't know much about basketball. I'm sure some analysis exists about optimum physical charistics for each position on the team. I'd guess rebounders are taller such that they're dont have to work _as_ hard to catch the ball after a missed shot. 
+    
+c) IQ and score on a college admission test in Seattle
+
+    * Non-Linear using a linear-log model with beta > 0. If there's anything I've learned from college it's that one need not be intelligent to attend. Remembering my test for BC it was only to place you up to a certain point of college-level classes. Given that there are diminishing returns for the upper-end of the admission test scale.
+    
+d) Gas prices and oil company profits
+
+    * Non-linear, quadratic. There's likely a zone of price fluctuation at the pump that has near-zero impact on the profits of oil companies. Once average pump price steps outside that zone, I expect profits increase or decrease sharply.  
+    
+e) Sleep and your score on your Econometrics course.
+
+    * Non-linear and quadratic with beta < 0. Too much sleep is bad and count denote health issues, or that one is in a coma. If one is sleeping in a coma then they cannot submit any econometrics homework and will fail. On the inverse side, zero sleep could denote similar underlying problems and lead to similar results. There's probably a "peak" sleep quantity unique to blocked demographics of students. 
+    
+2.  How do you differentiate the use of Ramsey's Reset and LM test?  Check-out ps.6.10 and ps.6.12 from Gretl's practice files.  Give example for each.  Which one is your preference to use; why?
+
+    * There wasn't much guidance about when to conduct either or, or in the case of the LM mode, how many additional *yhat* variables need to to be created.  In the case of my project, LM generated a more accurate model, keeping more variables. Between the two, I like the LM test more because it provides to opportunity to omit variables as we go along. 
+    
+    Alternatively, even Minitab (the software used for Math341 and 342) did this all on it's own and there wasn't really a need to hunt and peck for variables one-by-one. 
+    
+    
+
+    
+```{r}
+library(readr)
+require(tidyverse)
+dataset <- read_csv("project 2 data.csv")
+dataset_dropNA <- dataset %>% 
+  filter(!is.na(gs20))
+
+dataset_dropNA
+```
+  
+```{r}
+step(lm(mortg~fedfunds+cpifabns+gdp+tb3ms+gs20+spcs10rsa+houst+currcir,data=dataset_dropNA),direction="both")
+```
+
+```{r}
+step(lm(mortg~fedfunds+cpifabns+gdp+tb3ms+gs20+spcs10rsa+houst+currcir,data=dataset_dropNA),direction="backward")
+```
+
